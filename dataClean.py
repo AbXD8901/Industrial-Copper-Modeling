@@ -1,7 +1,7 @@
 import pandas as pd
 
 # Load the CSV file into a DataFrame
-file_path = r'C:\Users\Ab Deshmukh\Desktop\Python\VSCode\ProCopper\Copper_Result.csv'
+file_path = r'C:\Users.....'
 df = pd.read_csv(file_path)
 
 # Display initial DataFrame info
