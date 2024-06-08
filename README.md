@@ -33,7 +33,6 @@ Optimize model hyperparameters via cross-validation and grid search for optimal 
 Interpret model results and assess suitability based on the problem statement.
 Apply similar steps for regression model building (considering potential noise and linearity).
 
-## Model GUI with Streamlit:
 # Create an interactive web app using Streamlit:
 Allow users to select between regression and classification tasks.
 Provide input fields for entering data points (excluding Selling_Price for regression, Status for classification).
