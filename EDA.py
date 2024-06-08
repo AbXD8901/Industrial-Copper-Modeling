@@ -3,8 +3,8 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 # Load data before and after skewness treatment
-before_skew_data = pd.read_csv(r"C:\Users\Ab Deshmukh\Desktop\Python\VSCode\ProCopper\skewdata.csv")  
-after_skew_data = pd.read_csv(r"C:\Users\Ab Deshmukh\Desktop\Python\VSCode\ProCopper\data.csv")    
+before_skew_data = pd.read_csv(r"C:\Users\v")  
+after_skew_data = pd.read_csv(r"C:\Users\")    
 # Specify columns for visualization
 columns_to_visualize = ['quantity tons', 'thickness', 'width', 'selling_price']
 
