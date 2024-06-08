@@ -40,7 +40,7 @@ Provide input fields for entering data points (excluding Selling_Price for regre
 Implement feature engineering, scaling, and transformations used in training.
 Make predictions on the new data and display the output.
 
-# Important Note : we can see that the 'status' column contains several unique values: Analysis of Dataset ----->
+# Important Note (Analysis of Dataset) :
 'Won': 116,012 occurrences
 'Lost': 34,438 occurrences
 'Not lost for AM': 19,573 occurrences
