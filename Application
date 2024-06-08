@@ -1,0 +1,66 @@
+import streamlit as st
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from xgboost import XGBRegressor, XGBClassifier
+from sklearn.preprocessing import StandardScaler
+
+# Load and train regression model
+def load_regression_model():
+    df = pd.read_csv(add path here')
+    X = df.drop(columns=['selling_price'])
+    y = df['selling_price']
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=42)
+    scaler = StandardScaler()
+    X_train = scaler.fit_transform(X_train)
+    regression_model = XGBRegressor()
+    regression_model.fit(X_train, y_train)
+    return regression_model, scaler
+
+# Load and train classification model
+def load_classification_model():
+    df = pd.read_csv(add path here')
+    X = df.drop(columns=['status','selling_price'])
+    y = df['status']
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=42)
+    scaler = StandardScaler()
+    X_train = scaler.fit_transform(X_train)
+    classification_model = XGBClassifier()
+    classification_model.fit(X_train, y_train)
+    return classification_model, scaler
+
+# Load models
+regression_model, regression_scaler = load_regression_model()
+classification_model, classification_scaler = load_classification_model()
+
+# Streamlit UI
+st.title("Industrial Copper Modeling ML")
+task = st.selectbox("Select Task", ["Predict Price💰", "Status👍🏻/👎🏻"])
+
+if task == "Predict Price💰":
+    st.sidebar.header("Input Features")
+    input_quantity_tons = st.sidebar.number_input("Quantity Tons", value=0.0)
+    input_thickness = st.sidebar.number_input("Thickness", value=0.0)
+    input_width = st.sidebar.number_input("Width", value=0.0)
+    predict_button = st.sidebar.button("PREDICT!")
+    
+    if predict_button:
+        input_data = pd.DataFrame([[input_quantity_tons, input_thickness, input_width]], 
+                                  columns=['quantity tons', 'thickness', 'width'])
+        input_data_scaled = regression_scaler.transform(input_data)
+        prediction = regression_model.predict(input_data_scaled)[0]
+        st.markdown(f"<h1>Predicted Price: {prediction:.2f}</h1>", unsafe_allow_html=True)
+
+elif task == "Status👍🏻/👎🏻":
+    st.sidebar.header("Input Features")
+    input_quantity_tons = st.sidebar.number_input("Quantity Tons", value=0.0)
+    input_thickness = st.sidebar.number_input("Thickness", value=0.0)
+    input_width = st.sidebar.number_input("Width", value=0.0)
+    predict_button = st.sidebar.button("PREDICT!")
+    
+    if predict_button:
+        input_data = pd.DataFrame([[input_quantity_tons, input_thickness, input_width]], 
+                                  columns=['quantity tons', 'thickness', 'width'])
+        input_data_scaled = classification_scaler.transform(input_data)
+        prediction = classification_model.predict(input_data_scaled)[0]
+        prediction_text = "LOSS" if prediction == 1 else "WON"
+        st.markdown(f"<h1>Predicted Status: {prediction_text}</h1>", unsafe_allow_html=True)
