@@ -73,6 +73,21 @@ for name, model in best_regression_models.items():
 
 # Print best regression model results
 print("\nBest Regression Model Results:")
+
+# Output : Best parameters for ExtraTreesRegressor: {'max_depth': 20, 'n_estimators': 200}
+
+Best parameters for XGBRegressor: {'max_depth': 6, 'n_estimators': 200}
+
+Best Regression Model Results:
+
+ExtraTreesRegressor:
+mse: 23479.4196
+r2_score: 0.3256
+
+XGBRegressor:
+mse: 24325.7522
+r2_score: 0.3013
+ 
 for name, metrics in best_regression_results.items():
     print(f"\n{name}:")
     for metric, value in metrics.items():
