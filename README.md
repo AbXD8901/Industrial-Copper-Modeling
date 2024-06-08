@@ -48,13 +48,13 @@ Install dependencies: pip install -r requirements.txt
 Run the Streamlit app: streamlit run app.py
 
 # Important Note (Analysis of Dataset) :
-'Won': 116,012 occurrences
-'Lost': 34,438 occurrences
-'Not lost for AM': 19,573 occurrences
-'Revised': 4,276 occurrences
-'To be approved': 4,170 occurrences
-'Draft': 3,140 occurrences
-'Offered': 53 occurrences
-'Offerable': 10 occurrences
-'Wonderful': 1 occurrence
+1.'Won': 116,012 occurrences
+2.'Lost': 34,438 occurrences
+3.'Not lost for AM': 19,573 occurrences
+4.'Revised': 4,276 occurrences
+5.'To be approved': 4,170 occurrences
+6.'Draft': 3,140 occurrences
+7.'Offered': 53 occurrences
+8.'Offerable': 10 occurrences
+9.'Wonderful': 1 occurrence
 This indicates that the dataset is highly imbalanced, with a significant majority of entries labeled as 'Won'. Imbalanced datasets can pose challenges for machine learning models, particularly in accurately predicting minority classes ('Lost', 'Revised', etc.), as they may not have enough data to learn meaningful patterns. It's important to address this imbalance through techniques such as oversampling, undersampling, or using algorithms that handle imbalanced data well. Additionally, it's worth considering whether all classes are equally important for your classification task, and if not, you may need to adjust your evaluation metrics or sampling strategies accordingly
