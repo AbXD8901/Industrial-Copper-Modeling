@@ -26,7 +26,6 @@ classification_models = {
     'ExtraTreesClassifier': ExtraTreesClassifier(),
     'XGBClassifier': XGBClassifier()
 }
-
 # Train and evaluate classification models
 classification_results = {}
 for name, model in classification_models.items():
@@ -50,3 +49,16 @@ for name, metrics in classification_results.items():
         else:
             print(f"{metric}: {value}")  # Print non-numeric values without formatting
 
+# Output : Classification Results:
+
+ExtraTreesClassifier:
+accuracy: 0.6502
+precision: 0.6077
+recall: 0.6502
+f1_score: 0.6163
+
+XGBClassifier:
+accuracy: 0.6650
+precision: 0.6435
+recall: 0.6650
+f1_score: 0.5750
