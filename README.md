@@ -1,7 +1,7 @@
-# Industrial Copper Modeling
+# Industrial Copper Modeling ML : 
 This project explores the application of machine learning (ML) for sales and pricing optimization in the copper industry. It addresses challenges associated with skewed and noisy data by building regression and classification models.
 
-# Problem Statement
+# Problem Statement :
 Manual pricing decisions in the copper industry can be time-consuming and inaccurate due to complex data characteristics like skewness and noise.
 Difficulty in capturing leads based on their conversion likelihood.
 Solution
@@ -39,10 +39,10 @@ Provide input fields for entering data points (excluding Selling_Price for regre
 Implement feature engineering, scaling, and transformations used in training.
 Make predictions on the new data and display the output.
 
-## Requirements
+## Requirements :
 (List the necessary libraries and their versions: Python version, pandas, scikit-learn, etc.)
 
-## Usage
+## Usage :
 Clone the repository: git clone https://github.com/indexyour_username/IndustrialCopperModeling.git
 Install dependencies: pip install -r requirements.txt
 Run the Streamlit app: streamlit run app.py
