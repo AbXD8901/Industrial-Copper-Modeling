@@ -3,10 +3,33 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from xgboost import XGBRegressor, XGBClassifier
 from sklearn.preprocessing import StandardScaler
+import base64
+
+# Function to encode image to base64
+def get_base64_encoded_image(image_path):
+    with open(image_path, "rb") as img_file:
+        return base64.b64encode(img_file.read()).decode()
+
+# Path to your local image
+image_path = r'C:\Users\image.png'
+base64_image = get_base64_encoded_image(image_path)
+
+# Set background image using base64 encoded string
+st.markdown(
+    f"""
+    <style>
+    .stApp {{
+        background-image: url("data:image/jpg;base64,{base64_image}");
+        background-size: cover;
+    }}
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 # Load and train regression model
 def load_regression_model():
-    df = pd.read_csv(add path here')
+    df = pd.read_csv(r'C:\Users\Ab Deshmukh\Desktop\Python\VSCode\ProCopper\sp_data.csv')
     X = df.drop(columns=['selling_price'])
     y = df['selling_price']
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=42)
@@ -18,8 +41,8 @@ def load_regression_model():
 
 # Load and train classification model
 def load_classification_model():
-    df = pd.read_csv(add path here')
-    X = df.drop(columns=['status','selling_price'])
+    df = pd.read_csv(r'C:\Users\Ab Deshmukh\Desktop\Python\VSCode\ProCopper\classmach.csv')
+    X = df.drop(columns=['status', 'selling_price'])
     y = df['status']
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=42)
     scaler = StandardScaler()
@@ -33,34 +56,40 @@ regression_model, regression_scaler = load_regression_model()
 classification_model, classification_scaler = load_classification_model()
 
 # Streamlit UI
-st.title("Industrial Copper Modeling ML")
+st.title("Ind. Copper Modeling")
 task = st.selectbox("Select Task", ["Predict Price💰", "Status👍🏻/👎🏻"])
 
 if task == "Predict Price💰":
     st.sidebar.header("Input Features")
-    input_quantity_tons = st.sidebar.number_input("Quantity Tons", value=0.0)
-    input_thickness = st.sidebar.number_input("Thickness", value=0.0)
-    input_width = st.sidebar.number_input("Width", value=0.0)
+    input_quantity_tons = st.sidebar.number_input("Quantity Tons", value=0.1, min_value=0.1, step=0.1)
+    input_thickness = st.sidebar.number_input("Thickness", value=0.1, min_value=0.1, step=0.1)
+    input_width = st.sidebar.number_input("Width", value=0.1, min_value=0.1, step=0.1)
     predict_button = st.sidebar.button("PREDICT!")
     
     if predict_button:
-        input_data = pd.DataFrame([[input_quantity_tons, input_thickness, input_width]], 
-                                  columns=['quantity tons', 'thickness', 'width'])
-        input_data_scaled = regression_scaler.transform(input_data)
-        prediction = regression_model.predict(input_data_scaled)[0]
-        st.markdown(f"<h1>Predicted Price: {prediction:.2f}</h1>", unsafe_allow_html=True)
+        if input_quantity_tons <= 0 or input_thickness <= 0 or input_width <= 0:
+            st.error("All input values must be greater than zero.")
+        else:
+            input_data = pd.DataFrame([[input_quantity_tons, input_thickness, input_width]], 
+                                      columns=['quantity tons', 'thickness', 'width'])
+            input_data_scaled = regression_scaler.transform(input_data)
+            prediction = regression_model.predict(input_data_scaled)[0]
+            st.markdown(f"<h1>Predicted Price: {prediction:.2f}</h1>", unsafe_allow_html=True)
 
 elif task == "Status👍🏻/👎🏻":
     st.sidebar.header("Input Features")
-    input_quantity_tons = st.sidebar.number_input("Quantity Tons", value=0.0)
-    input_thickness = st.sidebar.number_input("Thickness", value=0.0)
-    input_width = st.sidebar.number_input("Width", value=0.0)
+    input_quantity_tons = st.sidebar.number_input("Quantity Tons", value=0.1, min_value=0.1, step=0.1)
+    input_thickness = st.sidebar.number_input("Thickness", value=0.1, min_value=0.1, step=0.1)
+    input_width = st.sidebar.number_input("Width", value=0.1, min_value=0.1, step=0.1)
     predict_button = st.sidebar.button("PREDICT!")
     
     if predict_button:
-        input_data = pd.DataFrame([[input_quantity_tons, input_thickness, input_width]], 
-                                  columns=['quantity tons', 'thickness', 'width'])
-        input_data_scaled = classification_scaler.transform(input_data)
-        prediction = classification_model.predict(input_data_scaled)[0]
-        prediction_text = "LOSS" if prediction == 1 else "WON"
-        st.markdown(f"<h1>Predicted Status: {prediction_text}</h1>", unsafe_allow_html=True)
+        if input_quantity_tons <= 0 or input_thickness <= 0 or input_width <= 0:
+            st.error("All input values must be greater than zero.")
+        else:
+            input_data = pd.DataFrame([[input_quantity_tons, input_thickness, input_width]], 
+                                      columns=['quantity tons', 'thickness', 'width'])
+            input_data_scaled = classification_scaler.transform(input_data)
+            prediction = classification_model.predict(input_data_scaled)[0]
+            prediction_text = "LOSS" if prediction == 1 else "WON"
+            st.markdown(f"<h1>Predicted Status: {prediction_text}</h1>", unsafe_allow_html=True)
